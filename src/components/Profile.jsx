@@ -1,14 +1,40 @@
 import React from "react";
 
-export const Profile = ()=>{
-    return <div className="row">
-        <div className="col-2">
-            <img src="https://i2.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" width="100%" alt=""/>
-        </div>
-        <div className="col-10">
-            <h1>Иван Иванов</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet aut cum dicta ea explicabo fugiat fugit hic, iure maiores modi nemo non omnis perferendis perspiciatis porro quam reprehenderit totam! Amet ex id, ipsam minus nemo non odit perspiciatis quisquam. Animi beatae consequatur explicabo hic, illo ipsam reiciendis vel! Quos?</p>
-        </div>
+export class Profile extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            userName: ""
+        }
+    }
+    componentDidMount() {
+        fetch("http://o9150210.beget.tech/GetUserJSON")
+            .then(function(response){
+                return response.text();
+             })
+            .then(info=>{
+                this.setState({
+                    userName: info
+                })
+            });
+        console.log("ШАГ2 Компонента отрисована");
+    }
 
-    </div>
+    componentWillUnmount() {
+        console.log("componentWillUnmount");
+    }
+
+    render(){
+        console.log("ШАГ1 Компонента в процессе отрисовки");
+        return <div className="row">
+            <div className="col-2">
+                <img src="https://i2.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" width="100%" alt=""/>
+            </div>
+            <div className="col-10">
+                <h1>{this.state.userName}</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet aut cum dicta ea explicabo fugiat fugit hic, iure maiores modi nemo non omnis perferendis perspiciatis porro quam reprehenderit totam! Amet ex id, ipsam minus nemo non odit perspiciatis quisquam. Animi beatae consequatur explicabo hic, illo ipsam reiciendis vel! Quos?</p>
+            </div>
+
+        </div>
+    }
 }
