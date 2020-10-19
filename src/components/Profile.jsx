@@ -8,7 +8,13 @@ export class Profile extends React.Component{
         }
     }
     componentDidMount() {
-        fetch("http://o9150210.beget.tech/getUser")
+        const formData = new FormData();
+        let userId = window.location.pathname.split("/")[2];
+        formData.append("userId", userId);
+        fetch("http://o9150210.beget.tech/getUser", {
+            method: "POST",
+            body: formData
+        })
             .then(function(response){
                 return response.json();
              })
