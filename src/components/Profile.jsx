@@ -8,13 +8,13 @@ export class Profile extends React.Component{
         }
     }
     componentDidMount() {
-        fetch("http://o9150210.beget.tech/GetUserJSON")
+        fetch("http://o9150210.beget.tech/getUser")
             .then(function(response){
-                return response.text();
+                return response.json();
              })
-            .then(info=>{
-                this.setState({
-                    userName: info
+            .then(user=>{
+                this.setState({ //использовать только функции-стрелки, т.к. function expession имеет свой this
+                    userName: user.name+" "+user.lastname
                 })
             });
         console.log("ШАГ2 Компонента отрисована");
